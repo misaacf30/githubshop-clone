@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_home_row2_categories",
+  "info": {
+    "displayName": "Row2Categories"
+  },
+  "options": {},
+  "attributes": {
+    "firstCategory": {
+      "type": "component",
+      "repeatable": false,
+      "component": "home.category-card-desc",
+      "required": true
+    },
+    "secondCategory": {
+      "type": "component",
+      "repeatable": false,
+      "component": "home.category-card-desc",
+      "required": true
+    }
+  }
+}

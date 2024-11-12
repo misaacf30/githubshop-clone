@@ -1,0 +1,34 @@
+{
+  "collectionName": "components_home_row3_categories",
+  "info": {
+    "displayName": "Row3Categories",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "firstCategory": {
+      "type": "component",
+      "repeatable": false,
+      "component": "home.category-card",
+      "required": true
+    },
+    "secondCategory": {
+      "type": "component",
+      "repeatable": false,
+      "component": "home.category-card"
+    },
+    "thirdCategory": {
+      "type": "component",
+      "repeatable": false,
+      "component": "home.category-card"
+    },
+    "bgImage": {
+      "allowedTypes": [
+        "images"
+      ],
+      "type": "media",
+      "multiple": false,
+      "required": true
+    }
+  }
+}
