@@ -8,6 +8,12 @@ const nextConfig: NextConfig = {
         hostname: 'localhost',
         port: '1337',
         pathname: '//uploads/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'www.thegithubshop.com',
+        port: '',
+        pathname: '/media/logo/stores/36/**',
       }
     ]
   }

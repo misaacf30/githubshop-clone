@@ -12,7 +12,7 @@ interface Props {
 
 export const Hero = ({ title, description, button, image, rightSide, bgImage }: Props) => {
   return (
-    <section className='py-[16px]'
+    <section className='pb-[16px]'
       style={{ backgroundImage: `url(${bgImage})`, backgroundPositionX: '0%', backgroundPositionY: '50%', 
         backgroundSize: 'contain', backgroundRepeat: 'no-repeat' }}
     >

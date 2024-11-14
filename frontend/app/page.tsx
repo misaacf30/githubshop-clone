@@ -10,7 +10,7 @@ export default async function Home() {
   const { title, hero1, hero2, row2categories, row3categories  } = await getHomeInfo()
 
   return (
-    <div className='pb-[40px]'>
+    <main className='pb-[40px]'>
       <Hero 
         title={hero1.title} description={hero1.description} image={`${STRAPI_HOST}/${hero1.image.url}`} 
         button={hero1.button} rightSide={true} bgImage=''
@@ -31,6 +31,6 @@ export default async function Home() {
         title3={row3categories.thirdCategory.title} image3={`${STRAPI_HOST}/${row3categories.thirdCategory.image.url}`} 
         bgImage={`${STRAPI_HOST}/${row3categories.bgImage.url}`}
       />
-    </div>
+    </main>
   );
 }
