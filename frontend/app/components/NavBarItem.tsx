@@ -9,11 +9,11 @@ interface Props {
 }
 
 export const NavBarItem = ({ navItem, subNavItems }: Props) => {
-    const [showDialog, setShowDialog] = useState(false);
+    const [showSubNav, setShowSubNav] = useState(false);
     return (
         <li className='relative pl-[20px] px-[8px] '
-            onMouseEnter={() => setShowDialog(true)}
-            onMouseLeave={() => setShowDialog(false)}
+            onMouseEnter={() => setShowSubNav(true)}
+            onMouseLeave={() => setShowSubNav(false)}
         >
             <div className=''>
                 <Link href={''}>
@@ -22,7 +22,7 @@ export const NavBarItem = ({ navItem, subNavItems }: Props) => {
             </div>
             <div className='absolute left-0 z-10'>
                 <ul className={`bg-white border rounded-[8px] pt-[10px] pb-[20px] mt-[8px] 
-                                    w-auto min-w-[230px] ${(showDialog === false || subNavItems.length === 0) && 'hidden'} `}>
+                                    w-auto min-w-[230px] ${(showSubNav === false || subNavItems.length === 0) && 'hidden'} `}>
                     {
                         subNavItems.map((item, index) =>
                             <li key={index} className='block'>

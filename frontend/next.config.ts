@@ -16,7 +16,8 @@ const nextConfig: NextConfig = {
         pathname: '/media/logo/stores/36/**',
       }
     ]
-  }
+  },
+  reactStrictMode: false,   // ??
 };
 
 export default nextConfig;
