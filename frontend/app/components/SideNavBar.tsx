@@ -18,7 +18,11 @@ export const SideNavBar = () => {
             document.body.classList.add('ml-[70vw]', 'overflow-hidden'); 
             
         }
-        else if ( showNav === false) {
+        else  {
+            document.body.classList.remove('ml-[70vw]', 'overflow-hidden'); 
+        }
+
+        return () => {
             document.body.classList.remove('ml-[70vw]', 'overflow-hidden'); 
         }
     }, [showNav])
