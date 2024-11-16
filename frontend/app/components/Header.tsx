@@ -1,39 +1,13 @@
-'use client'
-
 import Image from "next/image"
 import Link from "next/link"
 import { NavBarItem } from "./NavBarItem"
-import { useState } from "react"
 import { SideNavBar } from "./SideNavBar"
-import { SideNavBarItem } from "./SideNavBarItem"
 
 export const Header = () => {
-    const [showMenu, setShowMenu] = useState(false)
-
     return (
         <div className='px-[15px] py-[21px] max-w-[1390px] mx-auto'>
-            <div className='flex flex-wrap content-center '> {/* relative */}
-                
-                {/* <div className='min-[838px]:hidden content-center'>
-                    <Link href={''}
-                        onClick={() => setShowMenu(!showMenu)}
-                    >
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 448 384"
-                            width="24"
-                            height="24"
-                        >
-                            <path d="M 0 32 Q 0 18 9 9 L 9 9 L 9 9 Q 18 0 32 0 L 416 0 L 416 0 Q 430 0 439 9 Q 448 18 448 32 Q 448 46 439 55 Q 430 64 416 64 L 32 64 L 32 64 Q 18 64 9 55 Q 0 46 0 32 L 0 32 Z M 0 192 Q 0 178 9 169 L 9 169 L 9 169 Q 18 160 32 160 L 416 160 L 416 160 Q 430 160 439 169 Q 448 178 448 192 Q 448 206 439 215 Q 430 224 416 224 L 32 224 L 32 224 Q 18 224 9 215 Q 0 206 0 192 L 0 192 Z M 448 352 Q 448 366 439 375 L 439 375 L 439 375 Q 430 384 416 384 L 32 384 L 32 384 Q 18 384 9 375 Q 0 366 0 352 Q 0 338 9 329 Q 18 320 32 320 L 416 320 L 416 320 Q 430 320 439 329 Q 448 338 448 352 L 448 352 Z" />
-                        </svg>
-                    </Link>
-                </div> */}
-
-                {/* <ul className='bg-white absolute left-0 h-screen z-10 w-[40vw] px-[15px] '>        
-                    <SideNavBarItem navItem='Shop all' subNavItems={['New arrivals', 'Apparel', 'Collectibles', 'Bags', 'Drinkware']} />
-                    <SideNavBarItem navItem='Collections' subNavItems={['SPORTech collection', 'WFH collection', 'Pride collection']} />
-                    <SideNavBarItem navItem='About' subNavItems={[]} />
-                </ul> */}
+            <div className='flex flex-wrap content-center'> {/* relative */}
+    
                 <SideNavBar/>
 
                 <div className='ml-[10px] min-[838px]:ml-0'>    {/* Home icon - Logo */}
