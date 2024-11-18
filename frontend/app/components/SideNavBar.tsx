@@ -79,10 +79,12 @@ export const SideNavBar = () => {
             {showNav &&
                 <div className={`bg-white/50 fixed left-0 top-0 w-[100vw] h-[100vh] ${!showNav && 'hidden'} min-[838px]:hidden z-20 cursor-pointer`}>
                     <nav className={`bg-white h-screen w-[80vw] overflow-visible border-r-2 shadow-xl cursor-default`} ref={navbarRef} >
-                        <div className='flex justify-between px-[15px] pt-[24px] pb-[7px]'>
-                            <span className='text-[16px] text-[#232323] font-extrabold'>
-                                Menu
-                            </span>
+                        <div className='bg-[#f7f7f7]'>
+                            <button className='bg-white px-[34px] pt-[24px] pb-[7px] h-[71px] text-center align-middle'>
+                                <span className='text-[18px] text-[#232323] font-extrabold mx-auto'>
+                                    Menu
+                                </span>
+                            </button>
                         </div>
                         <ul className='divide-y divide-[#f7f7f7] px-[15px] py-[25px]'>
                             <SideNavBarItem navItem='Shop all' subNavItems={['New arrivals', 'Apparel', 'Collectibles', 'Bags', 'Drinkware']} navId={navId} setNavId={setNavId} />
