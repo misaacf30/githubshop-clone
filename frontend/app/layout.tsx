@@ -42,6 +42,7 @@ export default function RootLayout({
       >
         <Header/>
         {children}
+        <hr className='my-[20px]'/>
         <Footer/>
       </body>
     </html>

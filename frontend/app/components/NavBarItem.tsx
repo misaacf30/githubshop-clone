@@ -5,10 +5,11 @@ import { useState } from "react";
 
 interface Props {
     navItem: string,
+    itemLink: string,
     subNavItems: string[],
 }
 
-export const NavBarItem = ({ navItem, subNavItems }: Props) => {
+export const NavBarItem = ({ navItem, subNavItems, itemLink }: Props) => {
     const [showSubNav, setShowSubNav] = useState(false);
     return (
         <li className='relative pl-[20px] px-[8px] '
@@ -16,7 +17,7 @@ export const NavBarItem = ({ navItem, subNavItems }: Props) => {
             onMouseLeave={() => setShowSubNav(false)}
         >
             <div className=''>
-                <Link href={''}>
+                <Link href={itemLink}>
                     {navItem}
                 </Link>
             </div>

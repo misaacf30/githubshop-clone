@@ -11,7 +11,7 @@ export const Header = () => {
                 <SideNavBar/>
 
                 <div className='ml-[10px] min-[838px]:ml-0'>    {/* Home icon - Logo */}
-                    <Link href={''}>
+                    <Link href={'/'}>
                         <Image
                             src="https://www.thegithubshop.com/media/logo/stores/36/gh-shop-logo.png"
                             alt=''
@@ -28,9 +28,9 @@ export const Header = () => {
                 //  ${showMenu === true ? 'bg-white ml-0 order-first z-20 h-screen content-start fixed block' : ''} 
                 >
                     <ul className={`flex text-[16px] text-[#23282E] font-semibold tracking-[0.5px] `}>
-                        <NavBarItem navItem={'Shop all'} subNavItems={['New arrivals', 'Apparel', 'Collectibles', 'Bags']} />
-                        <NavBarItem navItem={'Collections'} subNavItems={['SPORTech collection', 'WFH collection']} />
-                        <NavBarItem navItem={'About'} subNavItems={[]} />
+                        <NavBarItem navItem={'Shop all'} itemLink={'/shop-by-category'} subNavItems={['New arrivals', 'Apparel', 'Collectibles', 'Bags']}  />
+                        <NavBarItem navItem={'Collections'} itemLink={''} subNavItems={['SPORTech collection', 'WFH collection']} />
+                        <NavBarItem navItem={'About'} itemLink={''} subNavItems={[]} />
 
                     </ul>
                 </nav>
