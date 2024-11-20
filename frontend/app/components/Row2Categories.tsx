@@ -17,10 +17,10 @@ export const Row2Categories = ( { title1, description1, image1, title2, descript
         <div className='flex flex-col min-[838px]:flex-row pt-[48px] '>
             <div className='w-full min-[838px]:w-1/2 mb-[8px] min-[838px]:pr-[16px]'>  {/* category 1 */}
                 <div className='relative h-[300px] '>
-                    <ImageButton image={image1} title={title1}/>
+                    <ImageButton image={image1} title={title1} link={''}/>
                 </div>
                 <div className='block' >
-                    <TextButton text={title1} />
+                    <TextButton text={title1} isHomePage={true} link={''}/>
                 </div>
                 <div className='block'>
                     <p className='text-[16px] text-[#4A4A4A] mb-[10px] inline-block tracking-[0.5px]'>
@@ -32,10 +32,10 @@ export const Row2Categories = ( { title1, description1, image1, title2, descript
 
             <div className='w-full min-[838px]:w-1/2 mb-[8px] min-[838px]:pl-[16px]'>  {/* category 2 */}
                 <div className='relative h-[300px] '>
-                    <ImageButton image={image2} title={title2} />
+                    <ImageButton image={image2} title={title2} link={''}/>
                 </div>
                 <div className='block' >
-                    <TextButton text={title2} />
+                    <TextButton text={title2} isHomePage={true} link={''}/>
                 </div>
                 <div className='block'>
                     <p className='text-[16px] text-[#4A4A4A] mb-[10px] inline-block tracking-[0.5px]'>

@@ -20,7 +20,7 @@ export const Hero = ({ title, description, button, image, rightSide, bgImage }: 
         <div className={`flex flex-wrap items-stretch py-[16px] mb-[48px] ${!rightSide && 'flex-row-reverse'} `}>
           <div className={`w-full min-[838px]:w-1/2  ${!rightSide && 'min-[838px]:pl-[16px]'} `}> {/* Image */}
             <div className='relative h-[320px]'>
-              <ImageButton image={image} title={title} />
+              <ImageButton image={image} title={title} link={''} />
             </div>
 
           </div>

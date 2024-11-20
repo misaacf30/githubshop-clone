@@ -22,10 +22,10 @@ export const Row3Categories = ({ title1, title2, title3, image1, image2, image3,
           <div className='w-full min-[838px]:w-1/3'>
             <div className='p-[24px] my-[32px] mx-[12px] rounded-[8px] bg-white'>
               <div className='relative h-[300px]'>
-                <ImageButton image={image1} title={title1} />
+                <ImageButton image={image1} title={title1} link={''}/>
               </div>
               <div>
-                <TextButton text={title1} />
+                <TextButton text={title1} isHomePage={true} link={''}/>
               </div>
             </div>
           </div>
@@ -33,10 +33,10 @@ export const Row3Categories = ({ title1, title2, title3, image1, image2, image3,
           <div className='w-full min-[838px]:w-1/3'>
             <div className='p-[24px] my-[32px] mx-[12px] rounded-[8px] bg-white'>
               <div className='relative h-[300px]'>
-                <ImageButton image={image2} title={title2} />
+                <ImageButton image={image2} title={title2} link={''}/>
               </div>
               <div>
-                <TextButton text={title2} />
+                <TextButton text={title2} isHomePage={true} link={''}/>
               </div>
             </div>
           </div>
@@ -44,10 +44,10 @@ export const Row3Categories = ({ title1, title2, title3, image1, image2, image3,
           <div className='w-full min-[838px]:w-1/3'>
             <div className='p-[24px] my-[32px] mx-[12px] rounded-[8px] bg-white'>
               <div className='relative h-[300px]'>
-                <ImageButton image={image3} title={title3} />
+                <ImageButton image={image3} title={title3} link={''}/>
               </div>
               <div>
-                <TextButton text={title3} />
+                <TextButton text={title3} isHomePage={true} link={''}/>
               </div>
             </div>
           </div>

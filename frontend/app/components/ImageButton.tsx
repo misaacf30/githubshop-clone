@@ -4,12 +4,13 @@ import Image from 'next/image'
 interface Props {
     image: string
     title: string
+    link: string
 }
 
-export const ImageButton = ({ image, title }: Props) => {
+export const ImageButton = ({ image, title, link }: Props) => {
     return (
         <Link
-            href={''}
+            href={link}
         >
             <Image
                 src={image}

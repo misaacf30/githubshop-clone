@@ -4,58 +4,28 @@
   "info": {
     "singularName": "product-category",
     "pluralName": "product-categories",
-    "displayName": "ProductCategory",
-    "description": ""
+    "displayName": "ProductCategory"
   },
   "options": {
     "draftAndPublish": true
   },
-  "pluginOptions": {
-    "i18n": {
-      "localized": true
-    }
-  },
+  "pluginOptions": {},
   "attributes": {
-    "name": {
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
+    "title": {
       "type": "string",
       "required": true
     },
     "slug": {
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
       "type": "uid",
-      "targetField": "name",
-      "required": true
-    },
-    "description": {
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "type": "text",
+      "targetField": "title",
       "required": true
     },
     "image": {
       "allowedTypes": [
-        "images",
-        "files"
+        "images"
       ],
       "type": "media",
       "multiple": false,
-      "pluginOptions": {
-        "i18n": {
-          "localized": false
-        }
-      },
       "required": true
     },
     "products": {
