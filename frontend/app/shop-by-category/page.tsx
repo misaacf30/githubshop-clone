@@ -3,11 +3,13 @@ import { ImageButton } from "../components/ImageButton";
 import { TextButton } from "../components/TextButton";
 import Link from "next/link";
 import { getCategories } from "../lib/get-categories";
+import { getProducts } from "../lib/get-products";
 
 export default async function ShopByCategory() {
     const categories = await getCategories()
+    const { products, pagination }= await getProducts()
 
-    if (categories === null) return null
+    if (categories === null && products === null) return null
 
     return (
         <div className='px-[15px] max-w-[1390px] mx-auto'>
@@ -53,12 +55,12 @@ export default async function ShopByCategory() {
                         <div>Items 1-12 of 98</div>
                         <div className='grid grid-cols-3 '>
                             {
-                                Array.from({ length: 9 }, (_, index) => (
+                                products.map((product : any, index : number) => (
                                     <div key={index} className='relative p-[10px] min-[838px]:ml-[8px] mb-[40px] border border-transparent hover:border-black/10 block'>
                                         <Link href={''} className='group overflow-hidden block'>
                                             <Image
-                                                src={'https://www.thegithubshop.com/media/catalog/product/1/5/1547509_z_3b5c.jpg'}
-                                                alt={'title'}
+                                                src={product.image}
+                                                alt={product.name}
                                                 unoptimized
                                                 width={400}
                                                 height={400}
@@ -69,10 +71,10 @@ export default async function ShopByCategory() {
                                         <div className='text-[16px] block'>
                                             <h2 className='text-[#121212] font-extrabold my-[5px] block'>
                                                 <Link href={''} className='hover:text- hover:underline underline-offset-1'>
-                                                    Github Sticker Pack
+                                                    {product.name}
                                                 </Link>
                                             </h2>
-                                            <span className='text-[#000000] mb-[25px] pr-[3px] inline-block'>$5.00</span>
+                                            <span className='text-[#000000] mb-[25px] pr-[3px] inline-block'>${product.price}</span>
                                         </div>
                                     </div>
                                 ))

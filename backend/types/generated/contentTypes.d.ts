@@ -529,9 +529,40 @@ export interface ApiProductCategoryProductCategory
   };
 }
 
+export interface ApiProductSizeProductSize extends Struct.CollectionTypeSchema {
+  collectionName: 'product_sizes';
+  info: {
+    displayName: 'ProductSize';
+    pluralName: 'product-sizes';
+    singularName: 'product-size';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    code: Schema.Attribute.String & Schema.Attribute.Required;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::product-size.product-size'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    products: Schema.Attribute.Relation<'manyToMany', 'api::product.product'>;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiProductProduct extends Struct.CollectionTypeSchema {
   collectionName: 'products';
   info: {
+    description: '';
     displayName: 'Product';
     pluralName: 'products';
     singularName: 'product';
@@ -558,6 +589,10 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
     product_category: Schema.Attribute.Relation<
       'manyToOne',
       'api::product-category.product-category'
+    >;
+    product_sizes: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::product-size.product-size'
     >;
     publishedAt: Schema.Attribute.DateTime;
     slug: Schema.Attribute.UID & Schema.Attribute.Required;
@@ -1079,6 +1114,7 @@ declare module '@strapi/strapi' {
       'api::global.global': ApiGlobalGlobal;
       'api::home.home': ApiHomeHome;
       'api::product-category.product-category': ApiProductCategoryProductCategory;
+      'api::product-size.product-size': ApiProductSizeProductSize;
       'api::product.product': ApiProductProduct;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;

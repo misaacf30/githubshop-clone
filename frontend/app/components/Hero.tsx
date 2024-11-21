@@ -35,7 +35,7 @@ export const Hero = ({ title, description, button, image, rightSide, bgImage }: 
               </p>
             </div>
             <div className='block max-w-full tracking-[0.5px]'>
-              <Button button={button} />
+              <Button text={button} link='/shop-by-category' />
             </div>
           </div>
         </div>
