@@ -2,15 +2,15 @@ import { Products } from "@/app/components/Products";
 import { getProducts } from "@/app/lib/get-products";
 import Link from "next/link";
 
-const PAGE_SIZE = '6'
+const PAGE_SIZE = '9'
 
 export default async function Page(
   { params, searchParams } : 
   { params: { slug: string }, searchParams:{ [key: string]: string | string[] | undefined } }
 ) {
   const slug = params.slug
-  const { page } = searchParams
-  const { products, pagination } = await getProducts( { slug, page, pageSize: PAGE_SIZE } )
+  const { page, pageSize = PAGE_SIZE, sort } = await searchParams         // searchParams should be awaited before accessing properties
+  const { products, pagination } = await getProducts( { slug, page, pageSize, sort } )
 
   return (
     <div className='px-[15px] max-w-[1390px] mx-auto'>
@@ -32,7 +32,7 @@ export default async function Page(
         </h1>
       </div>
 
-      <Products products={products} pagination={pagination} />
+      <Products products={products} pagination={pagination} sortValue={sort} />
     </div>
   )
 }

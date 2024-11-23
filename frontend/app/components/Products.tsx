@@ -6,34 +6,45 @@ import { SortBy } from "./SortBy"
 interface Props {
     products: any,
     pagination: any
+    sortValue: string | string[] | undefined
 }
 
-export const Products = ({ products, pagination }: Props) => {
+export const Products = ({ products, pagination, sortValue }: Props) => {
+    // const startIndex = (pagination.page - 1) * pagination.pageSize + 1;
+    // const endIndex = (pagination.page - 1) * pagination.pageSize + pagination.pageSize
+    
+    // Testing new method ****
+    const currentPage = pagination.page || 1;
+    const total = pagination.total
+    const start = (currentPage - 1) * pagination.pageSize + 1;
+    const end = Math.min(start + pagination.pageSize - 1, total);
+
+    // TEST THIS ABOVE AND FIX IT IF NECESSARY ^^^^^^^^^^^^^^^
 
     return (
-        <section className='flex flex-row mb-[16px]'>
+        <section className='flex flex-row mb-[16px] min-[838px]:pr-[15px]'>
             <div className='w-1/5'>
-                Shopping options
+                <strong>Shopping options</strong>
+                <div>
+                    <div>
+                        <h3>Category</h3>
+                    </div>
+                    <div>
+                        <h3>Size</h3>
+                    </div>
+                    <div>
+                        <h3>Color</h3>
+                    </div>
+                </div>
             </div>
-            <div className='w-4/5 pb-[40px]'>
+            <div className='w-5/5 pb-[40px]'>
 
-                <div className='flex justify-between'>
+                <div className='flex justify-between p-[10px] mb-[30px]'>
                     <span className='text-[12px] text-[#4A4A4A] '>
-                        {'Items'}&nbsp;
-                        <span className=' '>
-                            {(pagination.page - 1) * pagination.pageSize + 1}
-                        </span>&nbsp;
-                        {'-'}&nbsp;
-                        <span className=''>
-                            {(pagination.page - 1) * pagination.pageSize + pagination.pageSize}
-                        </span>&nbsp;
-                        {'of'}&nbsp;
-                        <span className=' '>
-                            {pagination.total}
-                        </span>
+                        Items&nbsp;{start}-{end}&nbsp;of&nbsp;{total}
                     </span>
 
-                    <SortBy />
+                    <SortBy selectedValue={sortValue} />
                 </div>
 
 

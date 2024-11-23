@@ -4,15 +4,16 @@ import { getProducts } from "../lib/get-products";
 import { Products } from "../components/Products";
 import { Categories } from "../components/Categories";
 
-const PAGE_SIZE = '6'
+const PAGE_SIZE = '9'
 
 export default async function ShopByCategory( 
     { searchParams } : 
     { searchParams: { [key: string]: string | string[] | undefined } }
 ) {
-    const { page, pageSize = PAGE_SIZE } = await searchParams         // searchParams should be awaited before accessing properties
+    const { page, pageSize = PAGE_SIZE, sort } = await searchParams         // searchParams should be awaited before accessing properties
     const categories = await getCategories()
-    const { products, pagination } = await getProducts( { slug: '', page, pageSize: PAGE_SIZE} )    // delete pageSize const if not used ^^^
+
+    const { products, pagination } = await getProducts( { slug: '', page, pageSize, sort } )
 
     if (categories === null && products === null) return null
 
@@ -34,7 +35,7 @@ export default async function ShopByCategory(
 
             <Categories categories={categories} />
 
-            <Products products={products} pagination={pagination} />
+            <Products products={products} pagination={pagination} sortValue={sort} />
 
         </div >
     )

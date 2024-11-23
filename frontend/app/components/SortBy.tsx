@@ -1,27 +1,26 @@
 'use client'
 
-import { useRouter, usePathname, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 
-
-
-export const SortBy = () => {
+export const SortBy = ( { selectedValue } : { selectedValue : string | string[] | undefined } ) => {
     const router = useRouter()
-    const pathname = usePathname()
-    const searchParams = useSearchParams()
 
-    const handleChange = (event : any) => {
-        const selectedValue = event.target.value;
-        router.push(selectedValue)
+    const handleChange = (event : any) => {       
+        router.push(event.target.value, {scroll: false})
     }
 
     return (
-        <div className='text-[12px] flex'>
-            SortBy
-            
-            <select >
-                <option value="">Default</option>
-                <option value="">Price (Low to High)</option>
-                <option value="">Price (High to Low)</option>
+        <div className='flex text-[12px]'>
+            <span className='text-[#4A4A4A]'>Sort by </span>
+
+            <select 
+                defaultValue={selectedValue && `?sort=${selectedValue}`} 
+                onChange={handleChange}
+                className='text-[#454545] pl-[0px] pb-[6px] ml-[7px] mr-[5px] border-b focus:outline-none '
+            >
+                <option value="?">Default</option>
+                <option value="?sort=price:asc">Price (Low to High)</option>
+                <option value="?sort=price:desc">Price (High to Low)</option>
             </select>
         </div>
     )
