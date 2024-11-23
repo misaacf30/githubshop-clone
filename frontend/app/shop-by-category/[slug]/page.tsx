@@ -2,7 +2,7 @@ import { Products } from "@/app/components/Products";
 import { getProducts } from "@/app/lib/get-products";
 import Link from "next/link";
 
-const PAGE_SIZE = 9
+const PAGE_SIZE = '6'
 
 export default async function Page(
   { params, searchParams } : 

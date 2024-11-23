@@ -1,6 +1,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import { Pagination } from "./Pagination"
+import { SortBy } from "./SortBy"
 
 interface Props {
     products: any,
@@ -14,22 +15,27 @@ export const Products = ({ products, pagination }: Props) => {
             <div className='w-1/5'>
                 Shopping options
             </div>
-            <div className='w-4/5 pb-[40px]'>              
+            <div className='w-4/5 pb-[40px]'>
 
-                <span className='text-[12px] text-[#4A4A4A] '>
-                    {'Items'}&nbsp;
-                    <span className=' '>
-                        {(pagination.page - 1) * pagination.pageSize + 1}
-                    </span>&nbsp;
-                    {'-'}&nbsp;
-                    <span className=''>
-                        {(pagination.page - 1) * pagination.pageSize + pagination.pageSize}
-                    </span>&nbsp;
-                    {'of'}&nbsp;
-                    <span className=' '>
-                        {pagination.total}
+                <div className='flex justify-between'>
+                    <span className='text-[12px] text-[#4A4A4A] '>
+                        {'Items'}&nbsp;
+                        <span className=' '>
+                            {(pagination.page - 1) * pagination.pageSize + 1}
+                        </span>&nbsp;
+                        {'-'}&nbsp;
+                        <span className=''>
+                            {(pagination.page - 1) * pagination.pageSize + pagination.pageSize}
+                        </span>&nbsp;
+                        {'of'}&nbsp;
+                        <span className=' '>
+                            {pagination.total}
+                        </span>
                     </span>
-                </span>
+
+                    <SortBy />
+                </div>
+
 
                 <div className='grid grid-cols-3 '>
                     {
