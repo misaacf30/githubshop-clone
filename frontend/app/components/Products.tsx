@@ -4,22 +4,16 @@ import { Pagination } from "./Pagination"
 import { SortBy } from "./SortBy"
 
 interface Props {
-    products: any,
+    products: any
     pagination: any
     sortValue: string | string[] | undefined
 }
 
 export const Products = ({ products, pagination, sortValue }: Props) => {
-    // const startIndex = (pagination.page - 1) * pagination.pageSize + 1;
-    // const endIndex = (pagination.page - 1) * pagination.pageSize + pagination.pageSize
-    
-    // Testing new method ****
     const currentPage = pagination.page || 1;
     const total = pagination.total
     const start = (currentPage - 1) * pagination.pageSize + 1;
     const end = Math.min(start + pagination.pageSize - 1, total);
-
-    // TEST THIS ABOVE AND FIX IT IF NECESSARY ^^^^^^^^^^^^^^^
 
     return (
         <section className='flex flex-row mb-[16px] min-[838px]:pr-[15px]'>

@@ -16,7 +16,7 @@ export const Pagination = ({ page, pageSize, pageCount, total }: Props) => {
     const prevPage = page - 1;
     const nextPage = page + 1;
 
-    const totalPages = Math.ceil(total / pageSize);     // New method works??? cosnt totalPages= total/ pagesize ***
+    const totalPages = Math.ceil(total / pageSize);
 
     const router = useRouter();
     const searchParams = useSearchParams();
@@ -31,8 +31,16 @@ export const Pagination = ({ page, pageSize, pageCount, total }: Props) => {
         router.push(`?${decodeURIComponent(newParams.toString())}`);
     }
 
+    const handleSelectChange = (event : any) => {
+        const newParams = new URLSearchParams(searchParams);
+        if(page > 1)
+            newParams.delete('page');
+        newParams.set('pageSize', event.target.value);
+        router.push(`?${decodeURIComponent(newParams.toString())}`);
+    }
+
     return (
-        <div className='flex justify-center p-[10px] mb-[30px]'>
+        <div className='flex justify-between p-[10px] mb-[30px]'>
             <div className='inline-flex place-items-center'>
                 <button
                     onClick={() => handlePageNumClick(prevPage) }
@@ -68,18 +76,21 @@ export const Pagination = ({ page, pageSize, pageCount, total }: Props) => {
                 </button>
             </div>
 
-            {/* <div className='flex text-[12px] text-[#4A4A4A] place-items-center'>
+            <div className='flex text-[12px] text-[#4A4A4A] place-items-center'>
                 <span className=''>Show  </span>
                 <div className='mx-[8px]'>
-                    <select onChange={handleSelectChange} className=' pb-[2px]'>
-                        <option value='6'>6</option>
+                    <select 
+                        defaultValue={pageSize} 
+                        onChange={handleSelectChange} 
+                        className=' pb-[2px]'
+                    >
                         <option value='9'>9</option>
                         <option value='12'>12</option>
-                        <option value='all'>All</option>
+                        <option value={total}>All</option>
                     </select>
                 </div>
                 <span className=''> per page </span>
-            </div> */}
+            </div>
         </div>
     )
 }

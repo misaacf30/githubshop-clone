@@ -27,6 +27,8 @@ export default async function ShopByCategory(
                 <span>Shop all</span>
             </div>
 
+            <span>page size: {pageSize}</span>
+
             <div className='pt-[16px]'>
                 <h1 className='text-[48px] font-extrabold mb-[40px]'>
                     Shop all
