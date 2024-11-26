@@ -2,34 +2,30 @@ import Image from "next/image"
 import Link from "next/link"
 import { Pagination } from "./Pagination"
 import { SortBy } from "./SortBy"
+import { SideFilterBar } from "./SideFilterBar"
 
 interface Props {
     products: any
     pagination: any
-    sortValue: string | string[] | undefined
+    sortByValue: string | string[] | undefined
+    showPerPageValue: string | string[] | undefined
+    categories: any
 }
 
-export const Products = ({ products, pagination, sortValue }: Props) => {
+export const Products = ({ products, pagination, sortByValue, showPerPageValue, categories }: Props) => {
     const currentPage = pagination.page || 1;
     const total = pagination.total
     const start = (currentPage - 1) * pagination.pageSize + 1;
     const end = Math.min(start + pagination.pageSize - 1, total);
 
+    if(products === null) {
+        return null
+    }
+
     return (
         <section className='flex flex-row mb-[16px] min-[838px]:pr-[15px]'>
             <div className='w-1/5'>
-                <strong>Shopping options</strong>
-                <div>
-                    <div>
-                        <h3>Category</h3>
-                    </div>
-                    <div>
-                        <h3>Size</h3>
-                    </div>
-                    <div>
-                        <h3>Color</h3>
-                    </div>
-                </div>
+                <SideFilterBar categories={categories} />
             </div>
             <div className='w-5/5 pb-[40px]'>
 
@@ -38,7 +34,7 @@ export const Products = ({ products, pagination, sortValue }: Props) => {
                         Items&nbsp;{start}-{end}&nbsp;of&nbsp;{total}
                     </span>
 
-                    <SortBy selectedValue={sortValue} />
+                    <SortBy sortByValue={sortByValue} page={pagination.page} />
                 </div>
 
 
@@ -70,7 +66,7 @@ export const Products = ({ products, pagination, sortValue }: Props) => {
                     }
                 </div>
 
-                <Pagination page={pagination.page} pageSize={pagination.pageSize} pageCount={pagination.pageCount} total={pagination.total} />
+                <Pagination page={pagination.page} pageSize={pagination.pageSize} pageCount={pagination.pageCount} total={pagination.total} showPerPageValue={showPerPageValue} />
 
             </div>
         </section>

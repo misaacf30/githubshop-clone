@@ -10,7 +10,9 @@ export default async function Page(
 ) {
   const slug = params.slug
   const { page, pageSize = PAGE_SIZE, sort } = await searchParams         // searchParams should be awaited before accessing properties
-  const { products, pagination } = await getProducts( { slug, page, pageSize, sort } )
+  const { products, pagination } = await getProducts( { slug, page, pageSize, sort, category : undefined } )
+
+  if (products === null) return null
 
   return (
     <div className='px-[15px] max-w-[1390px] mx-auto'>
@@ -32,7 +34,7 @@ export default async function Page(
         </h1>
       </div>
 
-      <Products products={products} pagination={pagination} sortValue={sort} />
+      <Products products={products} pagination={pagination} sortByValue={sort} showPerPageValue={pageSize} categories={null} />
     </div>
   )
 }

@@ -2,31 +2,42 @@
 
 import { useRouter, useSearchParams } from "next/navigation";
 
-export const SortBy = ( { selectedValue } : { selectedValue : string | string[] | undefined } ) => {
+interface Props {
+    sortByValue: string | string[] | undefined
+    page: number
+}
+
+export const SortBy = ( { sortByValue, page } : Props ) => {
     const router = useRouter();
     const searchParams = useSearchParams();
 
-    const handleChange = (event : any) => {       
+    const handleChange = (event: any) => {
         const newParams = new URLSearchParams(searchParams);
-        let page = null
+        const selectedValue = event.target.value;
 
-        if(newParams.get('page'))   // if page > 1
+        if (page > 1) //  newParams.get('page') -> Only if param page=1 does not exist
             newParams.delete('page');
 
-        newParams.set('sort', event.target.value);
-        router.push(`?${decodeURIComponent(newParams.toString())}`, {scroll: false});
+        if (selectedValue === 'default' && newParams.get('sort')) {
+            newParams.delete('sort');
+            router.push(`?${decodeURIComponent(newParams.toString())}`, { scroll: false });
+        }
+        else {
+            newParams.set('sort', selectedValue);
+            router.push(`?${decodeURIComponent(newParams.toString())}`, { scroll: false });
+        }
     }
 
     return (
         <div className='flex text-[12px]'>
             <span className='text-[#4A4A4A]'>Sort by </span>
 
-            <select 
-                defaultValue={selectedValue && `?sort=${selectedValue}`} 
+            <select
+                defaultValue={sortByValue}
                 onChange={handleChange}
                 className='text-[#454545] pl-[0px] pb-[6px] ml-[7px] mr-[5px] border-b focus:outline-none '
             >
-                <option value="?">Default</option>
+                <option value="default">Default</option>
                 <option value="price:asc">Price (Low to High)</option>
                 <option value="price:desc">Price (High to Low)</option>
             </select>

@@ -10,10 +10,10 @@ export default async function ShopByCategory(
     { searchParams } : 
     { searchParams: { [key: string]: string | string[] | undefined } }
 ) {
-    const { page, pageSize = PAGE_SIZE, sort } = await searchParams         // searchParams should be awaited before accessing properties
+    const { page, pageSize = PAGE_SIZE, sort, category } = await searchParams         // searchParams should be awaited before accessing properties
     const categories = await getCategories()
 
-    const { products, pagination } = await getProducts( { slug: '', page, pageSize, sort } )
+    const { products, pagination } = await getProducts( { slug: '', page, pageSize, sort, category } )
 
     if (categories === null && products === null) return null
 
@@ -27,17 +27,17 @@ export default async function ShopByCategory(
                 <span>Shop all</span>
             </div>
 
-            <span>page size: {pageSize}</span>
-
             <div className='pt-[16px]'>
                 <h1 className='text-[48px] font-extrabold mb-[40px]'>
                     Shop all
                 </h1>
             </div>
 
+            <span>Category: {category}</span>
+
             <Categories categories={categories} />
 
-            <Products products={products} pagination={pagination} sortValue={sort} />
+            <Products products={products} pagination={pagination} sortByValue={sort} showPerPageValue={pageSize} categories={categories} />
 
         </div >
     )
