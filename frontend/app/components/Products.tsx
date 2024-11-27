@@ -9,10 +9,12 @@ interface Props {
     pagination: any
     sortByValue: string | string[] | undefined
     showPerPageValue: string | string[] | undefined
-    categoriesList: any
+    categoryList: any
+    sizeList: any
+    colorList: any
 }
 
-export const Products = ({ products, pagination, sortByValue, showPerPageValue, categoriesList }: Props) => {
+export const Products = ({ products, pagination, sortByValue, showPerPageValue, categoryList, sizeList, colorList }: Props) => {
     const currentPage = pagination.page || 1;
     const total = pagination.total
     const start = (currentPage - 1) * pagination.pageSize + 1;
@@ -25,7 +27,7 @@ export const Products = ({ products, pagination, sortByValue, showPerPageValue, 
     return (
         <section className='flex flex-row mb-[16px] min-[838px]:pr-[15px]'>
             <div className='w-1/5'>
-                <SideFilterBar categoriesList={categoriesList} />
+                <SideFilterBar categoryList={categoryList} sizeList={sizeList} colorList={colorList} page={pagination.page} />
             </div>
             <div className='w-5/5 pb-[40px]'>
 

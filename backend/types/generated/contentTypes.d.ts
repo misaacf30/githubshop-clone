@@ -529,9 +529,41 @@ export interface ApiProductCategoryProductCategory
   };
 }
 
+export interface ApiProductColorProductColor
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'product_colors';
+  info: {
+    displayName: 'ProductColor';
+    pluralName: 'product-colors';
+    singularName: 'product-color';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::product-color.product-color'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    products: Schema.Attribute.Relation<'manyToMany', 'api::product.product'>;
+    publishedAt: Schema.Attribute.DateTime;
+    slug: Schema.Attribute.UID & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiProductSizeProductSize extends Struct.CollectionTypeSchema {
   collectionName: 'product_sizes';
   info: {
+    description: '';
     displayName: 'ProductSize';
     pluralName: 'product-sizes';
     singularName: 'product-size';
@@ -553,6 +585,7 @@ export interface ApiProductSizeProductSize extends Struct.CollectionTypeSchema {
     name: Schema.Attribute.String & Schema.Attribute.Required;
     products: Schema.Attribute.Relation<'manyToMany', 'api::product.product'>;
     publishedAt: Schema.Attribute.DateTime;
+    slug: Schema.Attribute.UID & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -571,7 +604,6 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
-    color: Schema.Attribute.Enumeration<['red', 'black', 'white', 'gray']>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -589,6 +621,10 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
     product_category: Schema.Attribute.Relation<
       'manyToOne',
       'api::product-category.product-category'
+    >;
+    product_colors: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::product-color.product-color'
     >;
     product_sizes: Schema.Attribute.Relation<
       'manyToMany',
@@ -1114,6 +1150,7 @@ declare module '@strapi/strapi' {
       'api::global.global': ApiGlobalGlobal;
       'api::home.home': ApiHomeHome;
       'api::product-category.product-category': ApiProductCategoryProductCategory;
+      'api::product-color.product-color': ApiProductColorProductColor;
       'api::product-size.product-size': ApiProductSizeProductSize;
       'api::product.product': ApiProductProduct;
       'plugin::content-releases.release': PluginContentReleasesRelease;

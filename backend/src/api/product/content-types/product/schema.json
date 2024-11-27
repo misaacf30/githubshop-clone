@@ -37,15 +37,6 @@
     "description": {
       "type": "text"
     },
-    "color": {
-      "type": "enumeration",
-      "enum": [
-        "red",
-        "black",
-        "white",
-        "gray"
-      ]
-    },
     "images": {
       "type": "media",
       "multiple": true,
@@ -64,6 +55,12 @@
       "relation": "manyToMany",
       "target": "api::product-size.product-size",
       "inversedBy": "products"
+    },
+    "product_colors": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::product-color.product-color",
+      "mappedBy": "products"
     }
   }
 }

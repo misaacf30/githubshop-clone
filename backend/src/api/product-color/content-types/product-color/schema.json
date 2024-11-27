@@ -1,11 +1,10 @@
 {
   "kind": "collectionType",
-  "collectionName": "product_sizes",
+  "collectionName": "product_colors",
   "info": {
-    "singularName": "product-size",
-    "pluralName": "product-sizes",
-    "displayName": "ProductSize",
-    "description": ""
+    "singularName": "product-color",
+    "pluralName": "product-colors",
+    "displayName": "ProductColor"
   },
   "options": {
     "draftAndPublish": true
@@ -16,19 +15,15 @@
       "type": "string",
       "required": true
     },
-    "code": {
-      "type": "string",
+    "slug": {
+      "type": "uid",
       "required": true
     },
     "products": {
       "type": "relation",
       "relation": "manyToMany",
       "target": "api::product.product",
-      "mappedBy": "product_sizes"
-    },
-    "slug": {
-      "type": "uid",
-      "required": true
+      "inversedBy": "product_colors"
     }
   }
 }
