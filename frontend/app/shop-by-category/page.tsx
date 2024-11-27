@@ -13,7 +13,7 @@ export default async function ShopByCategory(
     const { page, pageSize = PAGE_SIZE, sort, category } = await searchParams         // searchParams should be awaited before accessing properties
     const categories = await getCategories()
 
-    const { products, pagination } = await getProducts( { slug: '', page, pageSize, sort, category } )
+    const { products, pagination } = await getProducts( { slug: '', page, pageSize, sort, categories: category } )
 
     if (categories === null && products === null) return null
 
@@ -33,11 +33,11 @@ export default async function ShopByCategory(
                 </h1>
             </div>
 
-            <span>Category: {category}</span>
+            <span>Categories: {category}</span>
 
             <Categories categories={categories} />
 
-            <Products products={products} pagination={pagination} sortByValue={sort} showPerPageValue={pageSize} categories={categories} />
+            <Products products={products} pagination={pagination} sortByValue={sort} showPerPageValue={pageSize} categoriesList={categories} />
 
         </div >
     )
