@@ -20,16 +20,16 @@ export const Products = ({ products, pagination, sortByValue, showPerPageValue, 
     const start = (currentPage - 1) * pagination.pageSize + 1;
     const end = Math.min(start + pagination.pageSize - 1, total);
 
-    if(products === null) {
+    if(products === null || products.length === 0) {
         return null
     }
 
     return (
-        <section className='flex flex-row mb-[16px] min-[838px]:pr-[15px]'>
-            <div className='w-1/5'>
+        <section className='flex flex-row mb-[16px]'>
+            <div className='max-[837px]:hidden w-1/5'>
                 <SideFilterBar categoryList={categoryList} sizeList={sizeList} colorList={colorList} page={pagination.page} />
             </div>
-            <div className='w-5/5 pb-[40px]'>
+            <div className='w-full min-[858px]:w-4/5 pb-[40px]'>
 
                 <div className='flex justify-between p-[10px] mb-[30px]'>
                     <span className='text-[12px] text-[#4A4A4A] '>
@@ -40,7 +40,7 @@ export const Products = ({ products, pagination, sortByValue, showPerPageValue, 
                 </div>
 
 
-                <div className='grid grid-cols-3 '>
+                <div className='grid grid-cols-2 min-[640px]:grid-cols-3 '>
                     {
                         products.map((product: any, index: number) => (
                             <div key={index} className='relative p-[10px] min-[838px]:ml-[8px] mb-[40px] border border-transparent hover:border-black/10 block'>
@@ -69,7 +69,6 @@ export const Products = ({ products, pagination, sortByValue, showPerPageValue, 
                 </div>
 
                 <Pagination page={pagination.page} pageSize={pagination.pageSize} pageCount={pagination.pageCount} total={pagination.total} showPerPageValue={showPerPageValue} />
-
             </div>
         </section>
     )

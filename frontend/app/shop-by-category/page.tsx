@@ -41,7 +41,7 @@ export default async function ShopByCategory(
                 </h1>
             </div>
 
-            <Categories categories={categories} />
+            {/* <Categories categories={categories} /> */}
 
             <Products products={products} pagination={pagination} sortByValue={sort} showPerPageValue={pageSize} categoryList={filteredCategories} sizeList={filteredSizes} colorList={filteredColors} />
         </div >

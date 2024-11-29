@@ -32,8 +32,6 @@ export function getProducts({ slug, pageSize, page, sort, categories, sizes, col
     if (typeof (colors) === 'string') url += `&filters[product_colors][slug][$eq]=${colors}`
     else if (Array.isArray(colors)) colors.map((color: string) => url += `&filters[product_colors][slug][$eq]=${color}`)
 
-
-
     return query(url)
         .then(res => {
             const { data, meta } = res
