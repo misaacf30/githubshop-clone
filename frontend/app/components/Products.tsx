@@ -16,19 +16,14 @@ interface Props {
 
 export const Products = ({ products, pagination, sortByValue, showPerPageValue, categoryList, sizeList, colorList }: Props) => {
     const currentPage = pagination.page || 1;
-    const total = pagination.total
+    const total = pagination.total;
     const start = (currentPage - 1) * pagination.pageSize + 1;
     const end = Math.min(start + pagination.pageSize - 1, total);
 
-    if(products === null || products.length === 0) {
-        return null
-    }
+    if (products === null || products.length === 0) return null;
 
     return (
         <section className='flex flex-row mb-[16px]'>
-            <div className='max-[837px]:hidden w-1/5'>
-                <SideFilterBar categoryList={categoryList} sizeList={sizeList} colorList={colorList} page={pagination.page} />
-            </div>
             <div className='w-full min-[858px]:w-4/5 pb-[40px]'>
 
                 <div className='flex justify-between p-[10px] mb-[30px]'>
@@ -44,7 +39,7 @@ export const Products = ({ products, pagination, sortByValue, showPerPageValue, 
                     {
                         products.map((product: any, index: number) => (
                             <div key={index} className='relative p-[10px] min-[838px]:ml-[8px] mb-[40px] border border-transparent hover:border-black/10 block'>
-                                <Link href={''} className='group overflow-hidden block'>
+                                <Link href={product.slug} className='group overflow-hidden block'>
                                     <Image
                                         src={product.image}
                                         alt={product.name}
@@ -57,7 +52,7 @@ export const Products = ({ products, pagination, sortByValue, showPerPageValue, 
                                 </Link>
                                 <div className='text-[16px] block'>
                                     <h2 className='text-[#121212] font-extrabold my-[5px] block'>
-                                        <Link href={''} className='hover:text- hover:underline underline-offset-1'>
+                                        <Link href={product.slug} className='hover:text- hover:underline underline-offset-1'>
                                             {product.name}
                                         </Link>
                                     </h2>
@@ -68,7 +63,15 @@ export const Products = ({ products, pagination, sortByValue, showPerPageValue, 
                     }
                 </div>
 
-                <Pagination page={pagination.page} pageSize={pagination.pageSize} pageCount={pagination.pageCount} total={pagination.total} showPerPageValue={showPerPageValue} />
+                {
+                    (products.length > 0) && (
+                        <Pagination page={pagination.page} pageSize={pagination.pageSize} pageCount={pagination.pageCount} total={pagination.total} showPerPageValue={showPerPageValue} />
+                    )
+                }
+            </div>
+
+            <div className='max-[837px]:hidden w-1/5 order-first'>      {/* products are loaded before filters, but not rendered before filters*/}
+                <SideFilterBar categoryList={categoryList} sizeList={sizeList} colorList={colorList} page={pagination.page} />
             </div>
         </section>
     )
