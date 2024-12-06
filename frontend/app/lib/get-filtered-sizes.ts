@@ -8,15 +8,11 @@ interface Props {
 export function getFilteredSizes({ categories, colors }: Props) {
     let url = 'product-sizes?fields[0]=name&fields[1]=code&fields[2]=slug'
 
-    console.log("URL ****** " + url)
-
     if (typeof (categories) === 'string') url += `&filters[products][product_category][slug][$eq]=${categories}`
     else if (Array.isArray(categories)) categories.map((category: string) => url += `&filters[products][product_category][slug][$eq]=${category}`)
 
     if (typeof (colors) === 'string') url += `&filters[products][product_colors][slug][$eq]=${colors}`
     else if (Array.isArray(colors)) colors.map((color: string) => url += `&filters[products][product_colors][slug][$eq]=${color}`)
-
-    console.log("URL ****** " + url)
 
     return query(url)
         .then(res => {

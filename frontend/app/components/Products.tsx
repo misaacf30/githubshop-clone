@@ -39,7 +39,7 @@ export const Products = ({ products, pagination, sortByValue, showPerPageValue, 
                     {
                         products.map((product: any, index: number) => (
                             <div key={index} className='relative p-[10px] min-[838px]:ml-[8px] mb-[40px] border border-transparent hover:border-black/10 block'>
-                                <Link href={product.slug} className='group overflow-hidden block'>
+                                <Link href={'/' + product.slug + '/' + product.documentId} className='group overflow-hidden block'>
                                     <Image
                                         src={product.image}
                                         alt={product.name}
@@ -52,7 +52,7 @@ export const Products = ({ products, pagination, sortByValue, showPerPageValue, 
                                 </Link>
                                 <div className='text-[16px] block'>
                                     <h2 className='text-[#121212] font-extrabold my-[5px] block'>
-                                        <Link href={product.slug} className='hover:text- hover:underline underline-offset-1'>
+                                        <Link href={'/' + product.slug + '/' + product.documentId}className='hover:text- hover:underline underline-offset-1'>
                                             {product.name}
                                         </Link>
                                     </h2>

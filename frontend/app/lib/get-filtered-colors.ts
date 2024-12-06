@@ -14,7 +14,6 @@ export function getFilteredColors({ categories, sizes }: Props) {
     if (typeof (sizes) === 'string') url += `&filters[products][product_sizes][slug][$eq]=${sizes}`
     else if (Array.isArray(sizes)) sizes.map((size: string) => url += `&filters[products][product_sizes][slug][$eq]=${size}`)
 
-
     return query(url)
         .then(res => {
             return res.data.map((color: any) => {

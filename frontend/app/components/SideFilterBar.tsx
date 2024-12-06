@@ -23,16 +23,17 @@ export const SideFilterBar = ({ categoryList, sizeList, colorList, page }: Props
         if (page > 1)
             newParams.delete('page');
 
-        if (newParams.has(filterType, slug))
-            newParams.delete(filterType, slug);
-        else
+        if (!newParams.has(filterType, slug))                   // if (event.target.checked)) -> faster?
             newParams.append(filterType, slug);
+        else
+            newParams.delete(filterType, slug);
 
         router.push(`?${decodeURIComponent(newParams.toString())}`, { scroll: false });
     }
 
-    const checkSelection = (filterType: string, slug: string) => {
+    const checkSelected = (filterType: string, slug: string) => {
         const newParams = new URLSearchParams(searchParams);
+
         if (newParams.has(filterType, slug))
             return true;
         else
@@ -50,16 +51,12 @@ export const SideFilterBar = ({ categoryList, sizeList, colorList, page }: Props
         else
             newParams.delete(filterType, slug);
 
-        if(categoryList.includes('')) {
-
-        }
-
         return "?" + decodeURIComponent(newParams.toString());
     }
 
     // FIX: unselect filters when they are hidden after selecting other filters !!!!!!!!!!!! *****************************************
 
-    console.log("COLOR LIST LENGTH ->>>> " + colorList.length + " ****************************")
+    //console.log("COLOR LIST LENGTH ->>>> " + colorList.length + " ****************************")
 
     // const checkDisabled = (catSlug  : string) => {
     //     const newParams = new URLSearchParams(searchParams);
@@ -73,6 +70,10 @@ export const SideFilterBar = ({ categoryList, sizeList, colorList, page }: Props
     //     else 
     //         return true;
     // }
+
+
+    
+
 
     return (
         <div className="min-[838px]:pr-[20px] block">
@@ -90,9 +91,11 @@ export const SideFilterBar = ({ categoryList, sizeList, colorList, page }: Props
                                 <li key={index} className='flex pl-[10px] pr-[7px] py-[4px] my-[8px] items-start'>  {/* flex!!! */}
                                     <input
                                         type="checkbox"
+                                        //name="category"
                                         //value={category.slug}
                                         //disabled={checkDisabled(category.slug)}
-                                        checked={checkSelection('category', category.slug)}
+                                        //onChange={handleSelect}
+                                        checked={checkSelected('category', category.slug)}
                                         onChange={() => handleSelect('category', category.slug)}
                                         className='mr-[5px]'
                                     />
@@ -119,8 +122,7 @@ export const SideFilterBar = ({ categoryList, sizeList, colorList, page }: Props
                                 <li key={index} className='flex pl-[10px] pr-[7px] py-[4px] my-[8px] items-start'>
                                     <input
                                         type="checkbox"
-                                        //value={size.slug}
-                                        checked={checkSelection('size', size.slug)}
+                                        checked={checkSelected('size', size.slug)}
                                         onChange={() => handleSelect('size', size.slug)}
                                         className='mr-[5px] '
                                     />
@@ -147,8 +149,7 @@ export const SideFilterBar = ({ categoryList, sizeList, colorList, page }: Props
                                 <li key={index} className='flex pl-[10px] pr-[7px] py-[4px] my-[8px] items-start'>
                                     <input
                                         type="checkbox"
-                                        //value={color.slug}
-                                        checked={checkSelection('color', color.slug)}
+                                        checked={checkSelected('color', color.slug)}
                                         onChange={() => handleSelect('color', color.slug)}
                                         className='mr-[5px] '
                                     />

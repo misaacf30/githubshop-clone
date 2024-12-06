@@ -37,9 +37,9 @@ export function getProducts({ slug, pageSize, page, sort, categories, sizes, col
             const { data, meta } = res
 
             const products = data.map((product: any) => {
-                const { name, slug, isActive, price, images: rawImages } = product
+                const { name, slug, isActive, documentId, price, images: rawImages } = product
                 const image = `${STRAPI_HOST}/${rawImages[0].url}`
-                return { name, slug, isActive, price, image }
+                return { name, slug, documentId, isActive, price, image }
             })
 
             return { products, pagination: meta.pagination }

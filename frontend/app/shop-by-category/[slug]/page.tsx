@@ -14,7 +14,7 @@ export default async function Page(
   const { page, pageSize = PAGE_SIZE, sort, size, color } = await searchParams         // searchParams should be awaited before accessing properties
   const { products, pagination } = await getProducts({ slug, page, pageSize, sort, categories: undefined, sizes: size, colors: color })
 
-  if (products === null) return null
+  if (products === null || products.length === 0) return null
 
   const filteredSizes = await getFilteredSizes({ categories: slug, colors: color })
   const filteredColors = await getFilteredColors({ categories: slug, sizes: size })

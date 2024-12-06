@@ -6,7 +6,7 @@ interface Props {
 }
 
 export function getFilteredCategories({ sizes, colors }: Props) {
-    let url = 'product-categories?fields[0]=title&fields[1]=slug&populate[image][fields][0]=url'
+    let url = 'product-categories?fields[0]=title&fields[1]=slug'       // &populate[image][fields][0]=url
 
     if (typeof (sizes) === 'string') url += `&filters[products][product_sizes][slug][$eq]=${sizes}`
     else if (Array.isArray(sizes)) sizes.map((size: string) => url += `&filters[products][product_sizes][slug][$eq]=${size}`)

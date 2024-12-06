@@ -21,6 +21,14 @@ export default async function ShopByCategory(
 
     if (categories === null && products === null) return null
 
+    if (products?.length === 0)
+        return (
+            <div className='px-[15px] max-w-[1390px] mx-auto text-center py-[60px]'>
+                <h2 className='text-[24px] font-medium'>Sorry. We couldn't find the page you're looking for</h2>
+                <h3>{'< '} Go back or see similar products below</h3>
+            </div>
+        )
+
     const filteredCategories = await getFilteredCategories({ sizes: size, colors: color })
     const filteredSizes = await getFilteredSizes({ categories: category, colors: color })
     const filteredColors = await getFilteredColors({ categories: category, sizes: size })
