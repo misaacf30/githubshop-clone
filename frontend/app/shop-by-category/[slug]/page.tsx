@@ -3,6 +3,7 @@ import { getFilteredColors } from "@/app/lib/get-filtered-colors";
 import { getFilteredSizes } from "@/app/lib/get-filtered-sizes";
 import { getProducts } from "@/app/lib/get-products";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 
 const PAGE_SIZE = '9'
 
@@ -10,11 +11,11 @@ export default async function Page(
   { params, searchParams }:
     { params: { slug: string }, searchParams: { [key: string]: string | string[] | undefined } }
 ) {
-  const slug = params.slug
+  const slug = await params.slug
   const { page, pageSize = PAGE_SIZE, sort, size, color } = await searchParams         // searchParams should be awaited before accessing properties
   const { products, pagination } = await getProducts({ slug, page, pageSize, sort, categories: undefined, sizes: size, colors: color })
 
-  if (products === null || products.length === 0) return null
+  if (products === null || products.length === 0) return notFound();
 
   const filteredSizes = await getFilteredSizes({ categories: slug, colors: color })
   const filteredColors = await getFilteredColors({ categories: slug, sizes: size })

@@ -2,20 +2,23 @@ import { QuantityField } from "@/app/components/QuantityField";
 import { getProductInfo } from "@/app/lib/get-product-info";
 import Image from "next/image"
 import Link from "next/link";
+import { notFound } from "next/navigation";
 
 export default async function Product(
   { params }:
     { params: { slug: string, documentId: string } }
-) {
+) {   
   const { slug, documentId } = await params
 
   const product = await getProductInfo({ documentId });
 
-  if (product === null) return null;
+  if (product === null) notFound();
 
   const { name, price, image, description, product_category: category, product_sizes: sizes, stock } = product;
 
+  console.log("AQUI ===>> ", product)
 
+  
 
   return (
     <div className='px-[15px] max-w-[1390px] mx-auto'>
@@ -38,14 +41,14 @@ export default async function Product(
         <span className='capitalize'>{slug}</span>
       </div>
 
-      <main className='grid grid-cols-2 py-[64px]'>
+      <main className='grid min-[838px]:grid-cols-2 py-[16px] min-[838px]:py-[64px]'>
 
         {/* Product image */}
-        <div className='mb-[100px]'>
+        <div className='min-[838px]:mb-[100px]'>
           <div className='mx-[60px]'>
             <Image
               src={image}
-              alt={''}
+              alt={slug}
               unoptimized
               width={1400}
               height={1400}
@@ -56,14 +59,14 @@ export default async function Product(
         </div>
 
         {/* Product info */}
-        <div className='flex flex-col my-[60px]'>
+        <div className='flex flex-col mt-[30px] mb-[60px] min-[838px]:mt-[60px]'>
           <div className=''>
-            <h1 className='text-[48px] text-[#23382E] font-extrabold mb-[15px]'>{name}</h1>
+            <h1 className='text-[20px] min-[838px]:text-[48px] text-[#23382E] font-extrabold mb-[15px]'>{name}</h1>
           </div>
 
           <div className='flex justify-between border-b border-[#c1c1c1] mb-[25px]'>
             <div>
-              <span className='text-[36px] text-[#000000] font-medium '>${price.toFixed(2)}</span>
+              <span className='text-[22px] min-[838px]:text-[36px] text-[#000000] font-medium '>${price.toFixed(2)}</span>
             </div>
 
             <div className='flex flex-col'>

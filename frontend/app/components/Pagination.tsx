@@ -81,7 +81,7 @@ export const Pagination = ({ page, pageSize, pageCount, total, showPerPageValue 
                 )}
             </div>
 
-            <div className='flex text-[12px] text-[#4A4A4A] place-items-center'>
+            <div className='max-[837px]:hidden flex text-[12px] text-[#4A4A4A] place-items-center'>
                 <span className=''>Show  </span>
                 <div className='mx-[8px]'>
                     <select
@@ -89,7 +89,7 @@ export const Pagination = ({ page, pageSize, pageCount, total, showPerPageValue 
                         onChange={handleSelectChange}
                         className=' pb-[2px]'
                     >
-                        <option value='9'>9</option>
+                        <option value='6'>6</option>
                         <option value='12'>12</option>
                         <option value='all'>All</option>
                     </select>
