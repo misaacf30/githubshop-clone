@@ -14,11 +14,7 @@ export default async function Product(
 
   if (product === null) notFound();
 
-  const { name, price, image, description, product_category: category, product_sizes: sizes, stock } = product;
-
-  console.log("AQUI ===>> ", product)
-
-  
+  const { name, price, image, description, product_category: category, product_sizes: sizes, stock } = product;  
 
   return (
     <div className='px-[15px] max-w-[1390px] mx-auto'>
