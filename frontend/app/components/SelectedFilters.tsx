@@ -1,7 +1,7 @@
 'use client'
 
 import Link from "next/link";
-import { useSearchParams } from "next/navigation"
+import { usePathname, useSearchParams } from "next/navigation"
 
 
 interface Props {
@@ -10,12 +10,14 @@ interface Props {
 
 export const SelectedFilters = ({ page }: Props) => {
     const searchParams = useSearchParams();
+    const pathname = usePathname();
+    const newParams = new URLSearchParams(searchParams);
 
-    if (searchParams.size === 0) return null;
+    if (!newParams.has('category') && !newParams.has('size') && !newParams.has('color')) return null;
 
-    for (const [key, value] of searchParams.entries()) {
-        console.log(key, value);
-    }
+    // for (const [key, value] of searchParams.entries()) {
+    //     console.log(key, value);
+    // }
 
     const handleLink = (filterType: string, slug: string) => {
         const newParams = new URLSearchParams(searchParams);
@@ -32,8 +34,12 @@ export const SelectedFilters = ({ page }: Props) => {
     }
 
     return (
-        <ul className='flex flex-wrap items-center pl-[10px]'>
-            <li className='text-[12px] mr-[10px] mb-[10px]'>Filters: </li>
+        <ul className='flex flex-wrap items-center pt-[10px] pl-[10px] mb-[12px]'>
+            <li className='text-[12px] text-[#414141] font-semibold mr-[10px] mb-[10px]'>
+                <span className='py-[4px]'>
+                    Filters:
+                </span>
+            </li>
             {searchParams.getAll('category').map((category: string) => (
                 <li className='border rounded-[4px] mr-[10px] mb-[10px]' key={category}>
                     <Link
@@ -70,7 +76,15 @@ export const SelectedFilters = ({ page }: Props) => {
                     </Link>
                 </li>
             ))}
-
+            <li className=' mr-[10px] mb-[10px]'>
+                <Link
+                    href={pathname}
+                    scroll={false}
+                    className='text-[12px] text-[#4a4a4a] decoration-[#4a4a4a] underline py-[4px]'
+                >
+                    Clear all
+                </Link>
+            </li>
         </ul>
     )
 }

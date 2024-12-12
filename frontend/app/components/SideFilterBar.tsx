@@ -2,7 +2,6 @@
 
 import Link from "next/link"
 import { useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
 
 interface Props {
     categoryList: any
@@ -12,8 +11,6 @@ interface Props {
 }
 
 export const SideFilterBar = ({ categoryList, sizeList, colorList, page }: Props) => {
-    const [isChecked, setIsChecked] = useState(false)
-
     const router = useRouter();
     const searchParams = useSearchParams();
 
@@ -54,26 +51,12 @@ export const SideFilterBar = ({ categoryList, sizeList, colorList, page }: Props
         return "?" + decodeURIComponent(newParams.toString());
     }
 
-    // FIX: unselect filters when they are hidden after selecting other filters !!!!!!!!!!!! *****************************************
+    const getSelectedSize = (filterType: string) => {
+        const newParams = new URLSearchParams(searchParams);
 
-    //console.log("COLOR LIST LENGTH ->>>> " + colorList.length + " ****************************")
-
-    // const checkDisabled = (catSlug  : string) => {
-    //     const newParams = new URLSearchParams(searchParams);
-
-    //     if(!newParams.has('category')){
-    //         return false;
-    //     }
-    //     else if(newParams.has('category', catSlug)) {
-    //         return false;
-    //     }
-    //     else 
-    //         return true;
-    // }
-
-
-    
-
+        if(newParams.getAll(filterType).length > 0)
+            return `(${newParams.getAll(filterType).length})`
+    }
 
     return (
         <div className="min-[838px]:pr-[20px] block">
@@ -84,7 +67,9 @@ export const SideFilterBar = ({ categoryList, sizeList, colorList, page }: Props
                 {(categoryList && categoryList.length > 0) && (
                     <div className='block divide-y-[1.5px]'>
                         <h3 className='text-[12px] py-[8px] tracking-normal leading-[20px]'>
-                            Category
+                            Category &nbsp;
+                            <span className='text-[#494949] font-semibold'>{getSelectedSize('category')}</span>
+                            
                         </h3>
                         <ul className='text-[12px] text-[#494949] py-[10px]'>
                             {categoryList.map((category: any, index: number) => (
@@ -115,7 +100,8 @@ export const SideFilterBar = ({ categoryList, sizeList, colorList, page }: Props
                 {(sizeList && sizeList.length > 0) && (
                     <div className='block divide-y-[1.5px]'>
                         <h3 className='text-[12px] py-[8px] tracking-normal leading-[20px] '>
-                            Size
+                            Size &nbsp;
+                            <span className='text-[#494949] font-semibold'>{getSelectedSize('size')}</span>
                         </h3>
                         <ul className='text-[12px] text-[#494949] py-[10px]'>
                             {sizeList.map((size: any, index: number) => (
@@ -142,7 +128,8 @@ export const SideFilterBar = ({ categoryList, sizeList, colorList, page }: Props
                 {(colorList && colorList.length > 0) && (
                     <div className='block divide-y-[1.5px]'>
                         <h3 className='text-[12px] py-[8px] tracking-normal leading-[20px] '>
-                            Colors
+                            Colors &nbsp;
+                            <span className='text-[#494949] font-semibold'>{getSelectedSize('color')}</span>
                         </h3>
                         <ul className='text-[12px] text-[#494949] py-[10px]'>
                             {colorList.map((color: any, index: number) => (

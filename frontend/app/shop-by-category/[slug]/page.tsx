@@ -19,18 +19,7 @@ export default async function Page(
   const filteredSizes = await getFilteredSizes({ categories: slug, colors: color })
   const filteredColors = await getFilteredColors({ categories: slug, sizes: size })
 
-  if (products?.length === 0 && filteredSizes?.length === 0 && filteredColors?.length === 0) return notFound();
-  else if (products?.length === 0 && (filteredSizes?.length > 0 || filteredColors?.length > 0))
-    return (
-      <div className='px-[16px] pt-[30px] pb-[40px] max-w-[1390px] mx-auto text-center'>
-        <h2 className='text-[24px] font-medium mt-[70px] mb-[10px]'>
-          Sorry. We couldn't find the page you're looking for.
-        </h2>
-        <p className='text-[16px] mb-[100px]'>
-          {'< '} Go back or see similar products below
-        </p>
-      </div>
-    )
+  if (products?.length === 0 && filteredSizes?.length === 0 && filteredColors?.length === 0) return null;
 
   return (
     <div className='px-[15px] max-w-[1390px] mx-auto'>
