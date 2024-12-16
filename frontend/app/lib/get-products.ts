@@ -34,7 +34,9 @@ export function getProducts({ slug, pageSize, page, sort, categories, sizes, col
 
     return query(url)
         .then(res => {
-            const { data, meta } = res
+            const { data, meta } = res;
+
+            if(data === null || (meta?.pagination.total > 0 && meta?.pagination.page > meta?.pagination.pageCount)) return { products: null };
 
             const products = data.map((product: any) => {
                 const { name, slug, isActive, documentId, price, images: rawImages } = product

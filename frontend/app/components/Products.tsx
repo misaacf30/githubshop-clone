@@ -68,11 +68,7 @@ export const Products = ({ products, pagination, sortByValue, showPerPageValue, 
                                     }
                                 </div>
 
-                                {
-                                    (products.length > 0) && (
-                                        <Pagination page={pagination.page} pageSize={pagination.pageSize} pageCount={pagination.pageCount} total={pagination.total} showPerPageValue={showPerPageValue} />
-                                    )
-                                }
+                                <Pagination page={pagination.page} pageSize={pagination.pageSize} pageCount={pagination.pageCount} total={pagination.total} showPerPageValue={showPerPageValue} />
                             </>
                         )
                         :

@@ -6,6 +6,7 @@ import { Categories } from "../components/Categories";
 import { getFilteredSizes } from "../lib/get-filtered-sizes";
 import { getFilteredCategories } from "../lib/get-filtered-categories";
 import { getFilteredColors } from "../lib/get-filtered-colors";
+import { notFound } from "next/navigation";
 
 const PAGE_SIZE = '6'
 
@@ -19,7 +20,7 @@ export default async function ShopByCategory(
 
     const { products, pagination } = await getProducts({ slug: '', page, pageSize, sort, categories: category, sizes: size, colors: color })
 
-    if (categories === null && products === null) return null;
+    if(products === null || (products === null && categories === null)) return notFound();
 
     const filteredCategories = await getFilteredCategories({ sizes: size, colors: color })
     const filteredSizes = await getFilteredSizes({ categories: category, colors: color })

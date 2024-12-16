@@ -16,6 +16,8 @@ export function getFilteredColors({ categories, sizes }: Props) {
 
     return query(url)
         .then(res => {
+            if(res.data === null) return null;
+            
             return res.data.map((color: any) => {
                 const { name, slug } = color
                 return { name, slug }

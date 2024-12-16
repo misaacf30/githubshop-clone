@@ -9,7 +9,7 @@ export function getProductInfo({ documentId }: { documentId: string }) {
         .then(res => {
             const { data  } = res
 
-            if(data === null) return null;      // ***** return null if data is null ??? *******
+            if(data === null) return null;
 
             const { name, price, images: rawImages, description, product_category, product_sizes, stock } = data
             const image = `${STRAPI_HOST}/${rawImages[0].url}`

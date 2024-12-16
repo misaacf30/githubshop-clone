@@ -16,6 +16,8 @@ export function getFilteredSizes({ categories, colors }: Props) {
 
     return query(url)
         .then(res => {
+            if(res.data === null) return null;
+            
             return res.data.map((size: any) => {
                 const { name, code, slug } = size
                 return { name, code, slug }

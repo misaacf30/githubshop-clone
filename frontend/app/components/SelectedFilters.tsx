@@ -13,7 +13,7 @@ export const SelectedFilters = ({ page }: Props) => {
     const pathname = usePathname();
     const newParams = new URLSearchParams(searchParams);
 
-    if (!newParams.has('category') && !newParams.has('size') && !newParams.has('color')) return null;
+    if (!newParams.has('category') && !newParams.has('size') && !newParams.has('color')) return null;   // doesn't render selected filters
 
     // for (const [key, value] of searchParams.entries()) {
     //     console.log(key, value);

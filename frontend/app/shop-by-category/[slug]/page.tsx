@@ -16,10 +16,12 @@ export default async function Page(
   const { page, pageSize = PAGE_SIZE, sort, size, color } = await searchParams         // searchParams should be awaited before accessing properties
   const { products, pagination } = await getProducts({ slug, page, pageSize, sort, categories: undefined, sizes: size, colors: color })
 
+  if(products === null) return notFound();
+
   const filteredSizes = await getFilteredSizes({ categories: slug, colors: color })
   const filteredColors = await getFilteredColors({ categories: slug, sizes: size })
 
-  if (products?.length === 0 && filteredSizes?.length === 0 && filteredColors?.length === 0) return null;
+  if (products?.length === 0 && filteredSizes?.length === 0 && filteredColors?.length === 0) return notFound();   // used when url is invalid
 
   return (
     <div className='px-[15px] max-w-[1390px] mx-auto'>
