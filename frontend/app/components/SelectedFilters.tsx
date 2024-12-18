@@ -40,8 +40,8 @@ export const SelectedFilters = ({ page }: Props) => {
                     Filters:
                 </span>
             </li>
-            {searchParams.getAll('category').map((category: string) => (
-                <li className='border rounded-[4px] mr-[10px] mb-[10px]' key={category}>
+            {searchParams.getAll('category').map((category: string, index: number) => (
+                <li className='border rounded-[4px] mr-[10px] mb-[10px]' key={`${category}${index}`}>
                     <Link
                         href={handleLink('category', category)}
                         scroll={false}
@@ -52,8 +52,8 @@ export const SelectedFilters = ({ page }: Props) => {
                     </Link>
                 </li>
             ))}
-            {searchParams.getAll('size').map((size: string) => (
-                <li className='border rounded-[4px] mr-[10px] mb-[10px]' key={size}>
+            {searchParams.getAll('size').map((size: string, index: number) => (
+                <li className='border rounded-[4px] mr-[10px] mb-[10px]' key={`${size}${index}`}>
                     <Link
                         href={handleLink('size', size)}
                         scroll={false}
@@ -64,8 +64,8 @@ export const SelectedFilters = ({ page }: Props) => {
                     </Link>
                 </li>
             ))}
-            {searchParams.getAll('color').map((color: string) => (
-                <li className='border rounded-[4px] mr-[10px] mb-[10px]' key={color}>
+            {searchParams.getAll('color').map((color: string, index: number) => (
+                <li className='border rounded-[4px] mr-[10px] mb-[10px]' key={`${color}${index}`}>
                     <Link
                         href={handleLink('color', color)}
                         scroll={false}

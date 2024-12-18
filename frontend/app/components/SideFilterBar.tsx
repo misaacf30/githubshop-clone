@@ -59,7 +59,7 @@ export const SideFilterBar = ({ categoryList, sizeList, colorList, page }: Props
     }
 
     return (
-        <div className="min-[838px]:pr-[20px] block">
+        <div className='min-[838px]:pr-[20px] block'>
             <strong className='text-[12px] text-[#4a4a4a] pt-[10px] pb-[20px] pr-[10px] tracking-[0.5px] leading-[18px] block'>
                 Shopping options
             </strong>

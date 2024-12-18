@@ -5,6 +5,7 @@ import { SortBy } from "./SortBy"
 import { SideFilterBar } from "./SideFilterBar"
 import { SelectedFilters } from "./SelectedFilters"
 import { NoSearchResults } from "./NoSearchResults"
+import { MobileFilterBar } from "./MobileFilterBar"
 
 interface Props {
     products: any
@@ -32,10 +33,14 @@ export const Products = ({ products, pagination, sortByValue, showPerPageValue, 
                         ?
                         (
                             <>
-                                <div className='flex justify-between p-[10px] mb-[10px]'>
-                                    <span className='text-[12px] text-[#4A4A4A] '>
+                                <div className='flex justify-between min-[838px]:p-[10px] mb-[10px]'>
+                                    <span className='max-[837px]:hidden text-[12px] text-[#4A4A4A] '>
                                         Items&nbsp;{start}-{end}&nbsp;of&nbsp;{total}
                                     </span>
+
+                                    <div className='min-[838px]:hidden'>
+                                        <MobileFilterBar categoryList={categoryList} sizeList={sizeList} colorList={colorList} />
+                                    </div>
 
                                     <SortBy sortByValue={sortByValue} page={pagination.page} />
                                 </div>
@@ -78,7 +83,7 @@ export const Products = ({ products, pagination, sortByValue, showPerPageValue, 
                 }
             </div>
 
-            <div className='max-[837px]:hidden w-1/5 order-first'>      {/* products are loaded before filters, but not rendered before filters*/}
+            <div className='max-[837px]:hidden min-[838px]:w-1/5 order-first'>      {/* products are loaded before filters, but not rendered before filters*/}
                 <SideFilterBar categoryList={categoryList} sizeList={sizeList} colorList={colorList} page={pagination.page} />
             </div>
         </section >
