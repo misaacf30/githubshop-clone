@@ -29,13 +29,13 @@ export const SortBy = ( { sortByValue, page } : Props ) => {
     }
 
     return (
-        <div className='flex text-[12px]'>
-            <span className='text-[#4A4A4A]'>Sort by </span>
+        <div className='flex items-center text-[12px]'>
+            <span className='text-[#4A4A4A] pb-[6px]'>Sort by </span>
 
             <select
                 defaultValue={sortByValue}
                 onChange={handleChange}
-                className='text-[#454545] pl-[0px] pb-[6px] ml-[7px] mr-[5px] border-b focus:outline-none '
+                className='text-[#454545] pl-[0px] pb-[6px] ml-[7px] mr-[5px] border-b focus:outline-none'
             >
                 <option value="default">Default</option>
                 <option value="price:asc">Price (Low to High)</option>
