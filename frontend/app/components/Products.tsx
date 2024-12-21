@@ -26,7 +26,9 @@ export const Products = ({ products, pagination, sortByValue, showPerPageValue, 
     return (
         <section className='flex flex-row mb-[16px]'>
             <div className='w-full min-[838px]:w-4/5 pb-[40px]'>
-                <SelectedFilters page={pagination.page} />
+                <div className='max-[837px]:hidden'>
+                    <SelectedFilters page={pagination.page} />
+                </div>
 
                 {
                     (products.length > 0)
