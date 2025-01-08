@@ -1,11 +1,10 @@
 'use client'
 
 import { useEffect, useState } from "react"
-import Link from "next/link";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 
 export const MobileFilterBar = () => {
-  const [open, setOpen] = useState(true);   // should be false so component doesn't fetch data
+  const [open, setOpen] = useState(false);   // should be false so component doesn't fetch data
 
   const [categories, setCategories] = useState<any[]>([]);
   const [sizes, setSizes] = useState<any[]>([]);
@@ -17,7 +16,36 @@ export const MobileFilterBar = () => {
 
   const [loading, setLoading] = useState(true);
 
+  const router = useRouter();
   const searchParams = useSearchParams();
+
+  useEffect(() => {
+    if (open)
+      document.body.classList.add('overflow-y-hidden');
+    else
+      document.body.classList.remove('overflow-y-hidden');
+
+    return () => {
+      document.body.classList.remove('overflow-y-hidden');
+    }
+  }, [open])
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth > 838) {
+        setOpen(false);
+      }
+      else {
+        // do something here?
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   useEffect(() => {
     if (open) {   // or window.innerWidth < 838 ???
@@ -44,8 +72,7 @@ export const MobileFilterBar = () => {
       setSelectedColors(colorsArray);
       setLoading(false);
     }
-
-  }, [])
+  }, [open])
 
   // fetch only if mobile !!!
 
@@ -162,38 +189,81 @@ export const MobileFilterBar = () => {
     }
   }
 
-  useEffect(() => {
-    if (open)
-        document.body.classList.add('overflow-y-hidden');
-    else
-        document.body.classList.remove('overflow-y-hidden');
+  const getFiltersNumber = () => {
+    let total = 0;
+    searchParams.forEach((value, key) => {
+      if (key === 'category' || key === 'size' || key === 'color')
+        total++;
+    })
+    return total;
+  }
 
-    return () => {
-        document.body.classList.remove('overflow-y-hidden');
-    }
-}, [open])
+  const clearAll = () => {
+    const newParams = new URLSearchParams(searchParams);
+    newParams.delete('category');
+    newParams.delete('size');
+    newParams.delete('color');
+    newParams.delete('page');
 
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth > 838) {
-        setOpen(false);
-      }
-      else {
-        // do something here
-      }
-    };
+    router.push(`?${decodeURIComponent(newParams.toString())}`);
+  }
 
-    window.addEventListener('resize', handleResize);
+  const showResults = () => {
+    const newParams = new URLSearchParams(searchParams);
 
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
+    newParams.delete('category');
+    newParams.delete('size');
+    newParams.delete('color');
+    newParams.delete('page');
 
+    selectedCategories.map((category: string) => {
+      newParams.append('category', category);
+    })
+    selectedSizes.map((size: string) => {
+      newParams.append('size', size);
+    })
+    selectedColors.map((color: string) => {
+      newParams.append('color', color);
+    })
 
+    setOpen(false);
+    router.push(`?${decodeURIComponent(newParams.toString())}`);
+  }
 
   return (
     <div>
+      <div className='flex content-center'>
+        {/* Button to open filter bar */}
+        <div
+          onClick={() => setOpen(true)}
+          className='text-[14px] text-[#454545] content-center border border-[#e5e7eb] rounded-[8px] px-[12px] py-[2px] cursor-pointer'
+        >
+          <span className='text-[16px] font-medium'>
+            &#8801;
+          </span>&nbsp;&nbsp;
+          <span className=''>
+            Filters
+          </span>&nbsp;&nbsp;
+
+          <span className='text-[12px] font-medium'>
+            {getFiltersNumber() > 0 ? '(' + getFiltersNumber() + ')' : null}
+          </span>
+
+        </div>
+
+        {/* Clear all link */}
+        {getFiltersNumber() > 0 &&
+          <div className='px-[16px] my-[2px]'>
+            <button
+              onClick={clearAll}
+              className='text-[12px] text-[#4a4a4a] underline'
+            >
+              Clear all
+            </button>
+          </div>
+        }
+      </div>
+
       {/* FIlter Bar */}
       <div className={`${!open && 'hidden'} bg-white fixed w-screen h-screen max-w-[837px] top-0 left-0 right-0 z-30`}>
         <div className='flex flex-col h-full'>
@@ -391,13 +461,12 @@ export const MobileFilterBar = () => {
 
           {/* Button: Show resuts */}
           <div className='bg-gray-white z-40 flex-none h-auto p-[24px] border-t-[1px]'>
-            <Link
-              onClick={() => setOpen(false)}
-              href={""}
+            <button
+              onClick={showResults}
               className='text-[14px] font-bold text-white bg-[#3a3a3a] w-full h-[40px] text-center items-center rounded-[1000px] px-[24px] flex justify-center whitespace-nowrap'
             >
               Show results
-            </Link>
+            </button>
           </div>
         </div>
       </div>

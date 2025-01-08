@@ -1,16 +1,15 @@
 'use client'
 
 import Link from "next/link";
-import { usePathname, useSearchParams } from "next/navigation"
-
+import { useRouter, useSearchParams } from "next/navigation"
 
 interface Props {
     page: number
 }
 
 export const SelectedFilters = ({ page }: Props) => {
+    const router = useRouter();
     const searchParams = useSearchParams();
-    const pathname = usePathname();
     const newParams = new URLSearchParams(searchParams);
 
     if (!newParams.has('category') && !newParams.has('size') && !newParams.has('color')) return null;   // doesn't render selected filters
@@ -31,6 +30,16 @@ export const SelectedFilters = ({ page }: Props) => {
             newParams.delete(filterType, slug);
 
         return "?" + decodeURIComponent(newParams.toString());
+    }
+
+    const clearAll = () => {
+        const newParams = new URLSearchParams(searchParams);
+        newParams.delete('category');
+        newParams.delete('size');
+        newParams.delete('color');
+        newParams.delete('page');
+
+        router.push(`?${decodeURIComponent(newParams.toString())}`);
     }
 
     return (
@@ -77,13 +86,12 @@ export const SelectedFilters = ({ page }: Props) => {
                 </li>
             ))}
             <li className=' mr-[10px] mb-[10px]'>
-                <Link
-                    href={pathname}
-                    scroll={false}
+                <button
+                    onClick={clearAll}
                     className='text-[12px] text-[#4a4a4a] decoration-[#4a4a4a] underline py-[4px]'
                 >
                     Clear all
-                </Link>
+                </button>
             </li>
         </ul>
     )
