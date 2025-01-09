@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from "react"
-import { useSearchParams, useRouter } from "next/navigation";
+import { useSearchParams, useRouter, usePathname, useParams } from "next/navigation";
 
 export const MobileFilterBar = () => {
   const [open, setOpen] = useState(false);   // should be false so component doesn't fetch data
@@ -16,8 +16,13 @@ export const MobileFilterBar = () => {
 
   const [loading, setLoading] = useState(true);
 
+  const [categoriesOpen, setCategoriesOpen] = useState(true);
+  const [sizesOpen, setSizesOpen] = useState(true);
+  const [colorsOpen, setColorsOpen] = useState(true);
+
   const router = useRouter();
   const searchParams = useSearchParams();
+  const slug = useParams().slug;  // slug = true means page is shop-by-category/[slug]
 
   useEffect(() => {
     if (open)
@@ -56,7 +61,7 @@ export const MobileFilterBar = () => {
       const colorsArray: string[] = [];
 
       newParams.forEach((value, key) => {     // don't update state inside loop!!
-        if (key === 'category') {
+        if (key === 'category' && !slug) {
           categoriesArray.push(value);
         }
         else if (key === 'size') {
@@ -74,10 +79,10 @@ export const MobileFilterBar = () => {
     }
   }, [open])
 
-  // fetch only if mobile !!!
+  // fetch only if mobile or < 838 !!!
 
   useEffect(() => {
-    if (!loading) {
+    if (!loading && !slug) {
       let url = `${process.env.NEXT_PUBLIC_STRAPI_URL}/product-categories?fields[0]=title&fields[1]=slug`
 
       if (selectedSizes.length === 1) url += `&filters[products][product_sizes][slug][$eq]=${selectedSizes[0]}`
@@ -102,7 +107,8 @@ export const MobileFilterBar = () => {
     if (!loading) {
       let url = `${process.env.NEXT_PUBLIC_STRAPI_URL}/product-sizes?fields[0]=name&fields[1]=code&fields[2]=slug`
 
-      if (selectedCategories.length === 1) url += `&filters[products][product_category][slug][$eq]=${selectedCategories[0]}`
+      if (slug) url += `&filters[products][product_category][slug][$eq]=${slug}`
+      else if (selectedCategories.length === 1) url += `&filters[products][product_category][slug][$eq]=${selectedCategories[0]}`
       else if (selectedCategories.length > 0) selectedCategories.map((category: string) => url += `&filters[products][product_category][slug][$eq]=${category}`)
 
       if (selectedColors.length === 1) url += `&filters[products][product_colors][slug][$eq]=${selectedColors[0]}`
@@ -124,7 +130,8 @@ export const MobileFilterBar = () => {
     if (!loading) {
       let url = `${process.env.NEXT_PUBLIC_STRAPI_URL}/product-colors?fields[0]=name&fields[1]=slug`
 
-      if (selectedCategories.length === 1) url += `&filters[products][product_category][slug][$eq]=${selectedCategories[0]}`
+      if (slug) url += `&filters[products][product_category][slug][$eq]=${slug}`
+      else if (selectedCategories.length === 1) url += `&filters[products][product_category][slug][$eq]=${selectedCategories[0]}`
       else if (selectedCategories.length > 0) selectedCategories.map((category: string) => url += `&filters[products][product_category][slug][$eq]=${category}`)
 
       if (selectedSizes.length === 1) url += `&filters[products][product_sizes][slug][$eq]=${selectedSizes[0]}`
@@ -144,7 +151,7 @@ export const MobileFilterBar = () => {
 
 
   const checkSelected = (filterType: string, value: string) => {
-    if (filterType === 'category') {
+    if (filterType === 'category' && !slug) {
       if (selectedCategories.includes(value))
         return true;
       else
@@ -166,7 +173,7 @@ export const MobileFilterBar = () => {
 
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked === true) {
-      if (event.target.name === 'category' && !selectedCategories.includes(event.target.value)) {
+      if (event.target.name === 'category' && !selectedCategories.includes(event.target.value) && !slug) {
         setSelectedCategories([...selectedCategories, event.target.value]);
       }
       else if (event.target.name === 'size' && !selectedSizes.includes(event.target.value)) {
@@ -177,7 +184,7 @@ export const MobileFilterBar = () => {
       }
     }
     else {
-      if (event.target.name === 'category') {
+      if (event.target.name === 'category' && !slug) {
         setSelectedCategories(selectedCategories.filter(category => category !== event.target.value));
       }
       else if (event.target.name === 'size') {
@@ -192,7 +199,7 @@ export const MobileFilterBar = () => {
   const getFiltersNumber = () => {
     let total = 0;
     searchParams.forEach((value, key) => {
-      if (key === 'category' || key === 'size' || key === 'color')
+      if ((key === 'category' && !slug) || key === 'size' || key === 'color')
         total++;
     })
     return total;
@@ -216,9 +223,11 @@ export const MobileFilterBar = () => {
     newParams.delete('color');
     newParams.delete('page');
 
-    selectedCategories.map((category: string) => {
-      newParams.append('category', category);
-    })
+    if (!slug) {
+      selectedCategories.map((category: string) => {
+        newParams.append('category', category);
+      })
+    }
     selectedSizes.map((size: string) => {
       newParams.append('size', size);
     })
@@ -232,8 +241,9 @@ export const MobileFilterBar = () => {
 
   return (
     <div>
-      <div className='flex content-center'>
-        {/* Button to open filter bar */}
+      {/* Section to open and clear filter bar*/}
+      <section className='flex content-center'>
+        {/* Button: Filters */}
         <div
           onClick={() => setOpen(true)}
           className='text-[14px] text-[#454545] content-center border border-[#e5e7eb] rounded-[8px] px-[12px] py-[2px] cursor-pointer'
@@ -262,14 +272,14 @@ export const MobileFilterBar = () => {
             </button>
           </div>
         }
-      </div>
+      </section>
 
       {/* FIlter Bar */}
       <div className={`${!open && 'hidden'} bg-white fixed w-screen h-screen max-w-[837px] top-0 left-0 right-0 z-30`}>
         <div className='flex flex-col h-full'>
 
           {/* Title: Filters */}
-          <div className='flex-none h-auto px-[24px] py-[16px] border-b-[1px] flex justify-between'>
+          <section className='flex-none h-auto px-[24px] py-[16px] border-b-[1px] flex justify-between'>
             <div className='flex flex-row items-center'>
               <span className='text-[24px] '>
                 &#8801;
@@ -286,10 +296,10 @@ export const MobileFilterBar = () => {
             >
               X
             </button>
-          </div>
+          </section>
 
           {/* Filter types */}
-          <div className="grow overflow-y-auto px-[24px] py-[12px]">
+          <section className="grow overflow-y-auto px-[24px] py-[12px]">
 
             {/* Selected filters */}
             {(selectedCategories.length > 0 || selectedSizes.length > 0 || selectedColors.length > 0) && (
@@ -348,10 +358,10 @@ export const MobileFilterBar = () => {
             )}
 
             {/* Categories */}
-            {(categories && categories.length > 0) && (
+            {(categories.length > 0) && (
               <div className='block'>
                 <button
-                  onClick={() => console.log()}
+                  onClick={() => setCategoriesOpen(!categoriesOpen)}
                   className='text-[14px] py-[12px] tracking-normal leading-[20px] w-full flex justify-between
                                     border-b-[1px]'
                 >
@@ -364,7 +374,7 @@ export const MobileFilterBar = () => {
                     {'>'}
                   </div>
                 </button>
-                <ul className={`text-[14px] text-[#494949] py-[10px] ${!categories && 'hidden'}`}>
+                <ul className={`text-[14px] text-[#494949] py-[10px] ${!categoriesOpen && 'hidden'}`}>
                   {categories.map((category: any, index: number) => (
                     <li key={index} className='flex pl-[10px] pr-[7px] py-[4px] my-[8px] items-start'>
                       <label className='cursor-pointer'>
@@ -385,10 +395,10 @@ export const MobileFilterBar = () => {
             )}
 
             {/* Sizes */}
-            {(sizes && sizes.length > 0) && (
+            {(sizes.length > 0) && (
               <div className='block'>
                 <button
-                  onClick={() => console.log()}
+                  onClick={() => setSizesOpen(!sizesOpen)}
                   className='text-[14px] py-[12px] tracking-normal leading-[20px] w-full flex justify-between
                                 border-b-[1px]'
                 >
@@ -401,7 +411,7 @@ export const MobileFilterBar = () => {
                     {'>'}
                   </div>
                 </button>
-                <ul className={`text-[14px] text-[#494949] py-[10px] ${!sizes && 'hidden'}`}>
+                <ul className={`text-[14px] text-[#494949] py-[10px] ${!sizesOpen && 'hidden'}`}>
                   {sizes.map((size: any, index: number) => (
                     <li key={index} className='flex pl-[10px] pr-[7px] py-[4px] my-[8px] items-start'>
                       <label className='cursor-pointer'>
@@ -422,10 +432,10 @@ export const MobileFilterBar = () => {
             )}
 
             {/* Colors */}
-            {(colors && colors.length > 0) && (
+            {(colors.length > 0) && (
               <div className='block'>
                 <button
-                  onClick={() => console.log()}
+                  onClick={() => setColorsOpen(!colorsOpen)}
                   className='text-[14px] py-[12px] tracking-normal leading-[20px] w-full flex justify-between
                                 border-b-[1px]'
                 >
@@ -438,7 +448,7 @@ export const MobileFilterBar = () => {
                     {'>'}
                   </div>
                 </button>
-                <ul className={`text-[14px] text-[#494949] py-[10px] ${!colors && 'hidden'}`}>
+                <ul className={`text-[14px] text-[#494949] py-[10px] ${!colorsOpen && 'hidden'}`}>
                   {colors.map((color: any, index: number) => (
                     <li key={index} className='flex pl-[10px] pr-[7px] py-[4px] my-[8px] items-start '>
                       <label className='cursor-pointer'>
@@ -457,7 +467,7 @@ export const MobileFilterBar = () => {
                 </ul>
               </div>
             )}
-          </div>
+          </section>
 
           {/* Button: Show resuts */}
           <div className='bg-gray-white z-40 flex-none h-auto p-[24px] border-t-[1px]'>
