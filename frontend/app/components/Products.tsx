@@ -41,7 +41,7 @@ export const Products = ({ products, pagination, sortByValue, showPerPageValue, 
                                     </span>
 
                                     <div className='min-[838px]:hidden'>
-                                        <MobileFilterBar categoryList={categoryList} sizeList={sizeList} colorList={colorList} />
+                                        <MobileFilterBar />
                                     </div>
 
                                     <SortBy sortByValue={sortByValue} page={pagination.page} />

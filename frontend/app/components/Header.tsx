@@ -36,7 +36,7 @@ export const Header = () => {
                 </nav>
 
                 <div className='flex ml-auto items-center '>    {/* Cart icon */}
-                    <Link href={''}>
+                    <Link href="/cart">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="24"

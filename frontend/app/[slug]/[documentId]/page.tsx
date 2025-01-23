@@ -1,4 +1,4 @@
-import { QuantityField } from "@/app/components/QuantityField";
+import { ProductInteractiveComponents } from "@/app/components/ProductInteractiveComponents";
 import { getProductInfo } from "@/app/lib/get-product-info";
 import Image from "next/image"
 import Link from "next/link";
@@ -78,27 +78,8 @@ export default async function Product(
             </div>
           </div>
 
-          {(sizes.length > 0) &&
-            <div className='my-[20px]'>
-              <div className='pl-[2px]'>
-                <div>
-                  <h4 className='text-[14px] text-[#4A4A4A]'>Size</h4>
-                </div>
-                <div className='flex flex-wrap mt-[10px]'>
-                  {sizes.map((size: any, index: number) => (
-                    <span key={index} className='text-[12px] text-[#686868] font-semibold bg-[#f0f0f0] flex items-center justify-center 
-                    rounded-[50%] outline outline-[0px] outline-[#686868] outline-offset-1 hover:outline-[1px] cursor-pointer
-                    w-[43px] h-[43px] min-w-[43px] ml-[5px] mr-[15px] mb-[5px]'
-                    >
-                      {size.code}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </div>
-          }
 
-          <QuantityField stock={stock} />
+          <ProductInteractiveComponents sizes={sizes} stock={stock} documentId={documentId} name={name} price={price} image={image} />
 
           <div className='mt-[20px] mb-[10px]'>
             <p className='text-[14px] text-[#4a4a4a]'>

@@ -35,19 +35,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <StoreProvider>
-      <html lang="en">
-        <body
-          //className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-          //className={`${monaSans.variable}`}
-          className={`${MonaSans.className}`}
-        >
+    <html lang="en">
+      <body
+        //className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        //className={`${monaSans.variable}`}
+        className={`${MonaSans.className}`}
+      >
+        <StoreProvider>
           <Header />
           {children}
-          <hr className='my-[20px]' />
-          <Footer />
-        </body>
-      </html>
-    </StoreProvider>
+        </StoreProvider>
+        <hr className='my-[20px]' />
+        <Footer />
+      </body>
+    </html>
   );
 }

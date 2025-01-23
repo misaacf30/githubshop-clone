@@ -2,17 +2,14 @@ import { CartItems } from "../components/CartItems"
 
 export default async function Cart() {
     return (
-        <div className='px-[15px] max-w-[1390px] mx-auto'>
+        <div className='px-[15px] max-w-[1390px] mx-auto py-[18px]'>
 
 
 
             <div className='flex'>
-                <h1 className='text-[48px] font-extrabold mb-[40px]'>
-                    Cart
+                <h1 className='text-[20px] font-bold mb-[40px]'>
+                    Your Cart
                 </h1>
-                <span>
-                    (1 item)
-                </span>
             </div>
 
             <div className="flex">

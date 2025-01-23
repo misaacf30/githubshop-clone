@@ -47,17 +47,16 @@ export const ProductInteractiveComponents = ({ sizes, stock, documentId, name: n
                 <div className='my-[20px]'>
                     <div className='pl-[2px]'>
                         <div>
-                            <h4 className='text-[14px] text-[#4A4A4A]'>Size</h4>
+                            <h4 className='text-[14px] text-[#cfb0b0]'>Size</h4>
                         </div>
                         <div className='flex flex-wrap mt-[10px]'>
                             {sizes.map((sizeItem: any, index: number) => (
                                 <button
                                     key={index}
                                     onClick={() => setSize(sizeItem.code)}
-                                    className={`text-[12px] text-[#686868] font-semibold bg-[#f0f0f0] flex items-center justify-center 
-                                    rounded-[50%] outline outline-[0px] outline-[#686868] outline-offset-1 hover:outline-[1px] cursor-pointer
-                                    w-[43px] h-[43px] min-w-[43px] ml-[5px] mr-[15px] mb-[5px]
-                                    ${size === sizeItem.code && 'bg-[#383838] text-[#f0f0f0] hover:outline-none'}`}
+                                    className={`text-[12px] font-semibold  flex items-center justify-center  w-[43px] h-[43px] min-w-[43px] ml-[5px] mr-[15px] mb-[5px]
+                                    rounded-[50%] outline outline-[0px] outline-[#686868] outline-offset-1 hover:outline-[1px] cursor-pointer       
+                                    ${size === sizeItem.code ? 'bg-[#282d33] text-[#f0f0f0] hover:outline-none' : 'bg-[#f0f0f0] text-[#686868]'}`}
                                 >
                                     {sizeItem.code}
                                 </button>
